@@ -21,3 +21,70 @@ $(function () {
   //
   // TODO: Add code to display the current date in the header of the page.
 });
+let hours = [9, 10, 11, 12, 13, 14, 15, 16, 17];
+let hoursStandard = [
+  "9AM",
+  "10AM",
+  "11AM",
+  "12PM",
+  "1PM",
+  "2PM",
+  "3PM",
+  "4PM",
+  "5PM",
+];
+
+let timeRange;
+let today = dayjs().format("dddd, MMMM D YYYY");
+let currentHour = dayjs().format("HH ");
+console.log(`today is: ${today}`);
+console.log(`currentHour: ${currentHour}`);
+
+let date = $("#currentDay");
+date.text(today);
+
+let div = $("<div>");
+
+// Creates each row, with given id and class
+for (let i = 0; i < hours.length; i++) {
+  if (hours[i] < currentHour) {
+    timeRange = "past";
+    console.log(hours[i] + " past");
+  } else if (hours[i] > currentHour) {
+    timeRange = "future";
+    console.log(hours[i] + " future");
+  } else {
+    timeRange = "present";
+    console.log(hours[i] + " present");
+  }
+
+  $(".container-lg").append(`<div id="hour-${hours[i]}"></div>`);
+  $(`#hour-${hours[i]}`)
+    /* .attr("id", `hour-${hours[i]}`) */
+    .attr("class", `row time-block ${timeRange}`);
+
+  $(`#hour-${hours[i]}`)
+    .append(
+      `<div class="col-2 col-md-1 hour text-center py-3">${hoursStandard[i]} </div>`
+    )
+    .append(
+      `<textarea class="col-8 col-md-10 description" rows="3"> </textarea>`
+    ).append(`<button class="btn saveBtn col-2 col-md-1" aria-label="save">
+    <i class="fas fa-save" aria-hidden="true"></i>
+  </button>`);
+}
+
+// button click saves textarea
+$(`button`).on("click", function (i) {
+  if (this) {
+    console.log($(this).prev().val());
+    text = $(this).prev().val();
+    localStorage.setItem(`#hour-${hours[i]}`, +"text");
+  }
+});
+
+
+storage = {
+  id = #hour-1,
+  textvalue = decription
+}
